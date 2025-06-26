@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
 
 const heroStats = {
   rating: 4.9,
-  reviews: 500,
+  reviews: 25,
   label: "Clientes Satisfeitos",
 };
 
@@ -169,9 +169,7 @@ export default function LandingPage() {
                 Começar Teste Grátis
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 rounded-lg text-lg">
-                Ver Demonstração
-              </Button>
+              
             </div>
             <div className="flex items-center gap-8 text-sm text-gray-600">
               <div className="flex items-center gap-2">
@@ -359,9 +357,7 @@ export default function LandingPage() {
               Criar minha conta gratuita
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-4 rounded-lg text-lg">
-              Falar com especialista
-            </Button>
+            
           </div>
         </div>
       </section>
@@ -393,15 +389,7 @@ export default function LandingPage() {
                 <a href="#plans" className="block hover:text-white transition-colors">Planos</a>
               </div>
             </div>
-            <div>
-              <h4 className="font-semibold text-lg mb-6">Empresa</h4>
-              <div className="space-y-3 text-gray-400">
-                <a href="#" className="block hover:text-white transition-colors">Sobre nós</a>
-                <a href="#" className="block hover:text-white transition-colors">Blog</a>
-                <a href="#" className="block hover:text-white transition-colors">Carreiras</a>
-                <a href="#" className="block hover:text-white transition-colors">Contato</a>
-              </div>
-            </div>
+            
           </div>
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-400 text-sm">
