@@ -41,11 +41,13 @@ export const PlotsList = () => {
 
   const mutationOptions = {
     onSuccess: () => {
+      console.log('MutationOptions - onSuccess chamado');
       queryClient.invalidateQueries({ queryKey: ["plots"] });
       setIsDialogOpen(false);
       setSelectedPlot(null);
     },
     onError: (error: Error) => {
+      console.error('MutationOptions - onError chamado:', error);
       toast.error("Ocorreu um erro", { description: error.message });
     },
   };
@@ -54,8 +56,13 @@ export const PlotsList = () => {
     mutationFn: createPlot,
     ...mutationOptions,
     onSuccess: () => {
+      console.log('Mutation - Talhão criado com sucesso');
       mutationOptions.onSuccess();
       toast.success("Talhão criado com sucesso!");
+    },
+    onError: (error: Error) => {
+      console.error('Mutation - Erro ao criar talhão:', error);
+      mutationOptions.onError(error);
     },
   });
 
@@ -63,23 +70,33 @@ export const PlotsList = () => {
     mutationFn: updatePlot,
     ...mutationOptions,
     onSuccess: () => {
+      console.log('Mutation - Talhão atualizado com sucesso');
       mutationOptions.onSuccess();
       toast.success("Talhão atualizado com sucesso!");
+    },
+    onError: (error: Error) => {
+      console.error('Mutation - Erro ao atualizar talhão:', error);
+      mutationOptions.onError(error);
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: deletePlot,
     onSuccess: () => {
+      console.log('Mutation - Talhão excluído com sucesso');
       queryClient.invalidateQueries({ queryKey: ["plots"] });
       toast.success("Talhão excluído com sucesso!");
     },
     onError: (error: Error) => {
+      console.error('Mutation - Erro ao excluir talhão:', error);
       toast.error("Erro ao excluir talhão", { description: error.message });
     },
   });
 
   const handleFormSubmit = (values: any) => {
+    console.log('Submetendo formulário:', values);
+    console.log('Talhão selecionado:', selectedPlot);
+    
     if (!user) {
       toast.error("Você precisa estar logado para realizar esta ação.");
       return;
@@ -91,19 +108,25 @@ export const PlotsList = () => {
       geometry: values.geometry || null,
     };
 
+    console.log('Dados do talhão processados:', plotData);
+
     if (selectedPlot) {
+      console.log('Atualizando talhão:', selectedPlot.id);
       updateMutation.mutate({ ...plotData, id: selectedPlot.id });
     } else {
+      console.log('Criando novo talhão');
       createMutation.mutate(plotData);
     }
   };
 
   const handleEdit = (plot: Plot) => {
+    console.log('Editando talhão:', plot);
     setSelectedPlot(plot);
     setIsDialogOpen(true);
   };
 
   const handleDelete = (id: string) => {
+    console.log('Excluindo talhão:', id);
     deleteMutation.mutate(id);
   };
 

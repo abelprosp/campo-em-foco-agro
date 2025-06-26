@@ -1,4 +1,3 @@
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +17,16 @@ interface PlotRowActionsProps {
 }
 
 export const PlotRowActions = ({ plot, onEdit, onDelete, isDeleting }: PlotRowActionsProps) => {
+  const handleEdit = () => {
+    console.log('PlotRowActions - Editando talhão:', plot);
+    onEdit(plot);
+  };
+
+  const handleDelete = () => {
+    console.log('PlotRowActions - Excluindo talhão:', plot.id);
+    onDelete(plot.id);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,12 +36,12 @@ export const PlotRowActions = ({ plot, onEdit, onDelete, isDeleting }: PlotRowAc
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => onEdit(plot)}>
+        <DropdownMenuItem onClick={handleEdit}>
           <Pencil className="mr-2 h-4 w-4" />
           Editar
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onDelete(plot.id)} disabled={isDeleting} className="text-red-500 focus:text-red-500">
+        <DropdownMenuItem onClick={handleDelete} disabled={isDeleting} className="text-red-500 focus:text-red-500">
           <Trash2 className="mr-2 h-4 w-4" />
           Excluir
         </DropdownMenuItem>

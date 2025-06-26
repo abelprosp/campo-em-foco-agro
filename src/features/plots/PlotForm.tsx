@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Plot } from "./api";
 import { PlotEditorMap } from "./PlotEditorMap";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, "O nome é obrigatório."),
@@ -41,9 +42,47 @@ export const PlotForm = ({ onSubmit, defaultValues, isPending }: PlotFormProps) 
     },
   });
 
+  useEffect(() => {
+    console.log('PlotForm - defaultValues:', defaultValues);
+    console.log('PlotForm - form values:', form.getValues());
+    
+    if (defaultValues && Object.keys(defaultValues).length > 0) {
+      const newValues = {
+        name: defaultValues.name || "",
+        area_hectares: defaultValues.area_hectares || null,
+        geometry: defaultValues.geometry || null,
+      };
+      console.log('PlotForm - Aplicando novos valores:', newValues);
+      form.reset(newValues);
+    } else {
+      console.log('PlotForm - Resetando formulário para valores vazios');
+      form.reset({
+        name: "",
+        area_hectares: null,
+        geometry: null,
+      });
+    }
+  }, [defaultValues, form]);
+
+  const handleSubmit = (values: PlotFormValues) => {
+    console.log('PlotForm - valores submetidos:', values);
+    console.log('PlotForm - validando valores...');
+    
+    try {
+      // Testar validação manualmente
+      const validatedData = formSchema.parse(values);
+      console.log('PlotForm - valores validados com sucesso:', validatedData);
+      onSubmit(values);
+    } catch (error) {
+      console.error('PlotForm - erro na validação:', error);
+      // Mesmo assim, tentar submeter
+      onSubmit(values);
+    }
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -88,6 +127,17 @@ export const PlotForm = ({ onSubmit, defaultValues, isPending }: PlotFormProps) 
         />
         <Button type="submit" disabled={isPending} className="w-full">
           {isPending ? "Salvando..." : "Salvar"}
+        </Button>
+        <Button 
+          type="button" 
+          variant="outline" 
+          onClick={() => {
+            console.log('Teste - Valores atuais do formulário:', form.getValues());
+            console.log('Teste - defaultValues:', defaultValues);
+          }}
+          className="w-full"
+        >
+          Testar Formulário
         </Button>
       </form>
     </Form>

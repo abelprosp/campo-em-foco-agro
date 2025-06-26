@@ -1,63 +1,55 @@
-
 import { NavLink } from "react-router-dom";
 import { 
-  LayoutDashboard, 
-  Activity, 
+  BarChart3, 
+  Calendar, 
   DollarSign, 
   Package, 
-  BarChart3,
-  Shield,
-  FileText
+  TrendingUp, 
+  FileText, 
+  User, 
+  Settings,
+  Loader2
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useAdmin } from "@/contexts/AdminContext";
-import { Badge } from "@/components/ui/badge";
 
 interface NavLinksProps {
   onLinkClick?: () => void;
 }
 
 export const NavLinks = ({ onLinkClick }: NavLinksProps) => {
-  const { isAdmin } = useAdmin();
-
   const navItems = [
-    { to: "/", icon: LayoutDashboard, label: "Dashboard" },
-    { to: "/atividades", icon: Activity, label: "Atividades" },
-    { to: "/financeiro", icon: DollarSign, label: "Financeiro" },
-    { to: "/estoque", icon: Package, label: "Estoque" },
-    { to: "/producao", icon: BarChart3, label: "Produção" },
-    { to: "/nota-fiscal", icon: FileText, label: "Nota Fiscal", badge: "NOVO" },
+    { to: "/", icon: <BarChart3 className="w-5 h-5" />, label: "Dashboard" },
+    { to: "/atividades", icon: <Calendar className="w-5 h-5" />, label: "Atividades" },
+    { to: "/financeiro", icon: <DollarSign className="w-5 h-5" />, label: "Financeiro" },
+    { to: "/estoque", icon: <Package className="w-5 h-5" />, label: "Estoque" },
+    { to: "/producao", icon: <TrendingUp className="w-5 h-5" />, label: "Produção" },
+    { to: "/nota-fiscal", icon: <FileText className="w-5 h-5" />, label: "Nota Fiscal" },
+    { to: "/maquinas", icon: <Loader2 className="w-5 h-5 animate-spin" />, label: "Máquinas" },
+    { to: "/perfil", icon: <User className="w-5 h-5" />, label: "Perfil" },
+    { to: "/admin", icon: <Settings className="w-5 h-5" />, label: "Admin" },
   ];
 
-  if (isAdmin) {
-    navItems.push({ to: "/admin", icon: Shield, label: "Admin" });
-  }
-
   return (
-    <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-      {navItems.map(({ to, icon: Icon, label, badge }) => (
-        <NavLink
-          key={to}
-          to={to}
-          onClick={onLinkClick}
-          className={({ isActive }) =>
-            cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
-              isActive && "bg-muted text-primary"
-            )
-          }
-        >
-          <Icon className="h-4 w-4" />
-          <span className="flex items-center gap-2">
-            {label}
-            {badge && (
-              <Badge variant="secondary" className="text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                {badge}
-              </Badge>
-            )}
-          </span>
-        </NavLink>
-      ))}
+    <nav className="flex-1 px-4 py-4">
+      <ul className="space-y-2">
+        {navItems.map((item) => (
+          <li key={item.to}>
+            <NavLink
+              to={item.to}
+              onClick={onLinkClick}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`
+              }
+            >
+              {item.icon}
+              {item.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 };

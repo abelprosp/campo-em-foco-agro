@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,6 +20,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./pages/Profile";
 import { useActivityAlerts } from "./hooks/useActivityAlerts";
 import { useWeatherAlerts } from "./hooks/useWeatherAlerts";
+import Machines from "./pages/Machines";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +43,7 @@ const AppRoutes = () => {
           <Route path="/nota-fiscal" element={<Invoice />} />
           <Route path="/perfil" element={<ProfilePage />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/maquinas" element={<Machines />} />
         </Route>
       </Route>
       
