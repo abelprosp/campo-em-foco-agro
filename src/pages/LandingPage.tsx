@@ -92,25 +92,15 @@ const testimonials = [
 
 const plans = [
   {
-    name: "Freemium",
-    price: "R$0",
-    desc: "Para quem está começando a organizar a fazenda.",
+    name: "Pro",
+    price: "R$27,90/mês",
+    desc: "Todas as ferramentas para uma gestão completa e inteligente.",
     features: [
       "Dashboard Geral com KPIs",
       "Gestão de Atividades Básica",
       "Controle de Estoque Simples",
       "Interface Responsiva",
       "Suporte por Email",
-      "30 dias de teste gratuito"
-    ],
-    cta: "Começar Agora"
-  },
-  {
-    name: "Pro",
-    price: "R$27,90/mês",
-    desc: "Todas as ferramentas para uma gestão completa e inteligente.",
-    features: [
-      "Tudo do Freemium",
       "Controle Financeiro Avançado",
       "Análise de Produção Completa",
       "Gestão de Talhões com Mapeamento",
@@ -122,7 +112,7 @@ const plans = [
       "Suporte Prioritário",
       "Anexos de Arquivos"
     ],
-    cta: "Todas as funcionalidades incluídas"
+    cta: "Testar Grátis"
   }
 ];
 
@@ -309,11 +299,9 @@ export default function LandingPage() {
               Comece de graça e evolua conforme sua produção cresce.
             </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             {plans.map((p, i) => (
-              <Card key={i} className={`p-8 border-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl ${
-                i === 1 ? 'border-green-800 bg-green-50' : 'border-gray-200 bg-white'
-              }`} style={i === 1 ? { borderColor: 'rgb(27, 75, 71)', backgroundColor: 'rgba(27, 75, 71, 0.05)' } : {}}>
+              <Card key={i} className="p-8 border-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl border-green-800 bg-green-50" style={{ borderColor: 'rgb(27, 75, 71)', backgroundColor: 'rgba(27, 75, 71, 0.05)' }}>
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{p.name}</h3>
                   <div className="text-4xl font-bold mb-2" style={{ color: 'rgb(27, 75, 71)' }}>{p.price}</div>
@@ -329,12 +317,8 @@ export default function LandingPage() {
                 </ul>
                 <Button 
                   size="lg" 
-                  className={`w-full py-4 text-lg font-semibold rounded-lg ${
-                    i === 1 
-                      ? "text-white hover:opacity-90" 
-                      : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                  }`}
-                  style={i === 1 ? { backgroundColor: 'rgb(27, 75, 71)' } : {}}
+                  className="w-full py-4 text-lg font-semibold rounded-lg text-white hover:opacity-90"
+                  style={{ backgroundColor: 'rgb(27, 75, 71)' }}
                 >
                   {p.cta}
                 </Button>

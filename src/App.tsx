@@ -17,6 +17,7 @@ import { AdminProvider } from "./contexts/AdminContext";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AlwaysAccessibleRoute from "./components/AlwaysAccessibleRoute";
 import ProfilePage from "./pages/Profile";
 import { useActivityAlerts } from "./hooks/useActivityAlerts";
 import { useWeatherAlerts } from "./hooks/useWeatherAlerts";
@@ -33,6 +34,12 @@ const AppRoutes = () => {
       <Route path="/landing" element={!user ? <LandingPage /> : <Navigate to="/" />} />
       <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/" />} />
       
+      {/* Rotas sempre acessíveis (perfil para logout) */}
+      <Route element={<AlwaysAccessibleRoute />}>
+        <Route path="/perfil" element={<ProfilePage />} />
+      </Route>
+      
+      {/* Rotas que precisam de trial ativo ou plano Pro */}
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
           <Route path="/" element={<Index />} />
@@ -41,7 +48,6 @@ const AppRoutes = () => {
           <Route path="/estoque" element={<Inventory />} />
           <Route path="/producao" element={<Production />} />
           <Route path="/nota-fiscal" element={<Invoice />} />
-          <Route path="/perfil" element={<ProfilePage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/maquinas" element={<Machines />} />
         </Route>
